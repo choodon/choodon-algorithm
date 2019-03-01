@@ -1,21 +1,15 @@
 package com.choodon.algorithm.sort;
 
 /**
- * BubbleSort
+ * InsertionSort
  *
  * @author michael
- * @since 2019-02-28
+ * @since 2019-03-01
  */
-public class BubbleSort {
-    private BubbleSort() {
+public class InsertionSort {
+    private InsertionSort() {
     }
 
-    /**
-     * base version
-     *
-     * @param source
-     * @return
-     */
     public static void sort(int[] source) {
         if (source == null) {
             throw new IllegalArgumentException("source is null");
@@ -23,11 +17,6 @@ public class BubbleSort {
         sort(source, 0, source.length - 1);
     }
 
-    /**
-     * @param source
-     * @param low
-     * @param high
-     */
     public static void sort(int[] source, int low, int high) {
         if (source == null) {
             throw new IllegalArgumentException("source is null");
@@ -38,15 +27,18 @@ public class BubbleSort {
         if (low >= high) {
             return;
         }
-        for (int i = low; i <= high; i++) {
-            for (int j = high; j > i; j--) {
-                if (source[j] < source[j - 1]) {
-                    int min = source[j];
-                    source[j] = source[j - 1];
-                    source[j - 1] = min;
+        for (int i = low + 1; i < high + 1; i++) {
+            int insert = source[i];
+            int insertIndex = i;
+            for (int j = i - 1; j >= low; j--) {
+                if (insert < source[j]) {
+                    source[j + 1] = source[j];
+                    insertIndex = j;
+                } else if (source[j] < insert) {
+                    break;
                 }
             }
+            source[insertIndex] = insert;
         }
     }
-
 }

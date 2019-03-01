@@ -10,19 +10,19 @@ public class SelectionSort {
     private SelectionSort() {
     }
 
-    /**
-     * base version
-     *
-     * @param source
-     * @return
-     */
-    public static void sort(int[] source) {
+    public static void sort(int[] source, int low, int high) {
         if (source == null) {
             throw new IllegalArgumentException("source is null");
         }
-        for (int i = 0, length = source.length; i < length - 1; i++) {
+        if (low < 0 || high > source.length - 1) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        if (low >= high) {
+            return;
+        }
+        for (int i = low; i < high; i++) {
             int minIndex = i;
-            for (int j = i + 1; j < length; j++) {
+            for (int j = i + 1; j < high + 1; j++) {
                 if (source[minIndex] > source[j]) {
                     minIndex = j;
                 }
@@ -38,19 +38,32 @@ public class SelectionSort {
     }
 
     /**
-     * upgrade version
+     * base version
      *
      * @param source
      * @return
      */
-    public static void sort2(int[] source) {
+    public static void sort(int[] source) {
         if (source == null) {
             throw new IllegalArgumentException("source is null");
         }
-        for (int i = 0, length = source.length, j = length - 1; i < j; i++, j--) {
+        sort(source, 0, source.length - 1);
+    }
+
+    public static void sort2(int[] source, int low, int high) {
+        if (source == null) {
+            throw new IllegalArgumentException("source is null");
+        }
+        if (low < 0 || high > source.length - 1) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        if (low >= high) {
+            return;
+        }
+        for (int i = low, j = high; i < j; i++, j--) {
             int minIndex = i;
             int maxIndex = j;
-            for (int m = i + 1, n = j - 1; m < j && n > i; m++, n--) {
+            for (int m = i + 1, n = j - 1; m <= j && n >= i; m++, n--) {
                 if (source[minIndex] > source[m]) {
                     minIndex = m;
                 }
@@ -61,15 +74,31 @@ public class SelectionSort {
             if (minIndex != i) {
                 int min = source[minIndex];
                 source[minIndex] = source[i];
+                if (maxIndex == i) {
+                    source[minIndex] = source[j];
+                    source[j] = source[i];
+                }
                 source[i] = min;
             }
-            if (maxIndex != j && source[maxIndex] > source[j]) {
+            if (maxIndex != j && maxIndex != i) {
                 int max = source[maxIndex];
                 source[maxIndex] = source[j];
                 source[j] = max;
             }
-
         }
+
     }
 
+    /**
+     * upgrade version
+     *
+     * @param source
+     * @return
+     */
+    public static void sort2(int[] source) {
+        sort2(source, 0, source.length - 1);
+    }
 }
+
+
+

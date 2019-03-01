@@ -10,37 +10,47 @@ public class QuickSort {
     private QuickSort() {
     }
 
+    public static void sort(int[] source) {
+        if (source == null) {
+            throw new IllegalArgumentException("source is null");
+        }
+        sort(source, 0, source.length - 1);
+    }
+
     public static void sort(int[] source, int low, int high) {
         if (source == null) {
             throw new IllegalArgumentException("source is null");
+        }
+        if (low < 0 || high > source.length - 1) {
+            throw new ArrayIndexOutOfBoundsException();
         }
         if (low >= high) {
             return;
         }
         int key = source[low];
-        int lowKeyIndex = low;
-        int highKeyIndex = high;
+        int keyIndex = low;
+        int sortIndex = high;
         for (int i = 1, num = high - low; i <= num; i++) {
-            lowKeyIndex++;
-            if (key > source[lowKeyIndex]) {
-                int min = source[lowKeyIndex];
-                source[lowKeyIndex] = key;
-                source[lowKeyIndex - 1] = min;
+            keyIndex++;
+            if (key > source[keyIndex]) {
+                int min = source[keyIndex];
+                source[keyIndex] = key;
+                source[keyIndex - 1] = min;
 
-            } else if (key < source[lowKeyIndex]) {
-                for (; highKeyIndex >= lowKeyIndex; highKeyIndex--) {
-                    if (source[highKeyIndex] < key) {
-                        int min = source[highKeyIndex];
-                        source[lowKeyIndex - 1] = min;
-                        source[highKeyIndex] = source[lowKeyIndex];
-                        source[lowKeyIndex] = key;
-                        highKeyIndex--;
+            } else if (key < source[keyIndex]) {
+                for (; sortIndex >= keyIndex; sortIndex--) {
+                    if (source[sortIndex] < key) {
+                        int min = source[sortIndex];
+                        source[keyIndex - 1] = min;
+                        source[sortIndex] = source[keyIndex];
+                        source[keyIndex] = key;
+                        sortIndex--;
                         num--;
                         break;
-                    } else if (source[highKeyIndex] == key) {
-                        source[highKeyIndex] = source[lowKeyIndex];
-                        source[lowKeyIndex] = key;
-                        highKeyIndex--;
+                    } else if (source[sortIndex] == key) {
+                        source[sortIndex] = source[keyIndex];
+                        source[keyIndex] = key;
+                        sortIndex--;
                         num--;
                         break;
                     }
@@ -49,7 +59,7 @@ public class QuickSort {
             }
 
         }
-        sort(source, low, lowKeyIndex - 1);
-        sort(source, lowKeyIndex, high);
+        sort(source, low, keyIndex - 1);
+        sort(source, keyIndex, high);
     }
 }
