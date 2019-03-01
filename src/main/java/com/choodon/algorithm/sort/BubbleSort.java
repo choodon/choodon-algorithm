@@ -1,8 +1,5 @@
 package com.choodon.algorithm.sort;
 
-import java.util.Arrays;
-import java.util.Random;
-
 /**
  * BubbleSort
  *
@@ -19,7 +16,7 @@ public class BubbleSort {
      * @param source
      * @return
      */
-    public static int[] sort(int[] source) {
+    public static void sort(int[] source) {
         if (source == null) {
             throw new IllegalArgumentException("source is null");
         }
@@ -32,16 +29,7 @@ public class BubbleSort {
                 }
             }
         }
-        return source;
     }
 
-    public static void main(String[] args) {
-        int[] source = new int[10];
-        for (int i = 0, length = source.length; i < length; i++) {
-            source[i] = new Random().nextInt(100000);
-        }
-        System.out.println(Arrays.toString(source));
-        System.out.println(Arrays.toString(sort(source)));
-        System.out.println(Arrays.toString(SelectionSort.sort(source)).equals(Arrays.toString(sort(source))));
-    }
+
 }

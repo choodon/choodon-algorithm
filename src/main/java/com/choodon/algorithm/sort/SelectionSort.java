@@ -1,8 +1,5 @@
 package com.choodon.algorithm.sort;
 
-import java.util.Arrays;
-import java.util.Random;
-
 /**
  * SelectionSort
  *
@@ -19,7 +16,7 @@ public class SelectionSort {
      * @param source
      * @return
      */
-    public static int[] sort(int[] source) {
+    public static void sort(int[] source) {
         if (source == null) {
             throw new IllegalArgumentException("source is null");
         }
@@ -38,7 +35,6 @@ public class SelectionSort {
             }
 
         }
-        return source;
     }
 
     /**
@@ -47,7 +43,7 @@ public class SelectionSort {
      * @param source
      * @return
      */
-    public static int[] sort2(int[] source) {
+    public static void sort2(int[] source) {
         if (source == null) {
             throw new IllegalArgumentException("source is null");
         }
@@ -74,16 +70,6 @@ public class SelectionSort {
             }
 
         }
-        return source;
     }
 
-    public static void main(String[] args) {
-        int[] source = new int[10002];
-        for (int i = 0, length = source.length; i < length; i++) {
-            source[i] = new Random().nextInt(100000);
-        }
-        System.out.println(Arrays.toString(source));
-        System.out.println(Arrays.toString(sort(source)));
-        System.out.println(Arrays.toString(sort(source)).equals(Arrays.toString(sort2(source))));
-    }
 }
